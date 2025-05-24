@@ -314,7 +314,8 @@ public class CommonProxy {
             if (shadowHandsLevel > 0 && event.getEntity() instanceof Mob mob) {
                 DomesticationMod.PROXY.updateVisualDataForMob(event.getEntity(), TameableUtils.getShadowPunchTimes(mob));
                 if (!mob.level().isClientSide) {
-                    Entity punching = TameableUtils.getPetAttackTarget(mob);
+                    var targetEntity = TameableUtils.getPetAttackTarget(mob);
+                    Entity punching =targetEntity instanceof Player?null:targetEntity;
                     int[] punchProgress = TameableUtils.getShadowPunchTimes(mob);
                     if (punching != null && punching.isAlive() && mob.hasLineOfSight(punching) && mob.distanceTo(punching) < 16) {
                         int[] striking = TameableUtils.getShadowPunchStriking(mob);
